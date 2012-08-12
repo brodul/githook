@@ -1,11 +1,12 @@
 import os
 import unittest
 
-import githook
 
-class FlaskrTestCase(unittest.TestCase):
+class GithookTestCase(unittest.TestCase):
 
     def setUp(self):
+        import githook
+
         githook.app.config['TESTING'] = True
         self.app = githook.app.test_client()
         self.ct = "application/x-www-form-urlencoded"
