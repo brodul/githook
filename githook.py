@@ -16,7 +16,7 @@ config.read(CONFIG)
 
 @app.route('/', methods=['GET'])
 def index():
-    return redirect('https://github.com/brodul/github-hook')
+    return redirect('https://github.com/brodul/githook')
 
 @app.route('/', methods=['POST'])
 def commit():
