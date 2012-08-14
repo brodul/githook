@@ -3,9 +3,10 @@ import os, os.path
 import json
 import subprocess
 from ConfigParser import ConfigParser
+from ConfigParser import NoSectionError
+from ConfigParser import NoOptionError
 
 from flask import Flask, request, redirect, abort
-from mock import patch
 
 CONFIG = "config.ini"
 
@@ -27,14 +28,18 @@ def commit():
     reponame = payload['repository']['name']
     lastref = payload['ref'].rsplit('/', 1)[1]
     
-    if "heads" in payload['ref']:
-        branchname = lastref
-        cmd = config.get(reponame, branchname)
-    elif "tags" in payload['ref']:
-        tagname = lastref
-        cmd = config.get(reponame + ":tags", tagname)
-    else:
-        return "Unknown refs!"
+    try:
+        if "heads" in payload['ref']:
+            branchname = lastref
+            cmd = config.get(reponame, branchname)
+        elif "tags" in payload['ref']:
+            tagname = lastref
+            section = reponame + ":tags"
+            cmd = config.get(section, tagname)
+    except NoSectionError:
+        return "Unknown section!"
+    except NoOptionError:
+        return "Unknown branch or tag!"
 
     subprocess.call(cmd, shell=True, stdout=subprocess.PIPE)
     return "OK"
