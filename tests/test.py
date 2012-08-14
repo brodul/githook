@@ -42,6 +42,17 @@ class GithookTestCase(unittest.TestCase):
         )
         self.assertEqual(response.data, "OK")
 
+    def test_no_section(self):
+        """"""
+        with open("tests/json/nosection.json") as f:
+            json = f.readline()
+        response = self.app.post(
+            '/',
+            data={'payload':json},
+            content_type=self.ct
+        )
+        self.assertEqual(response.data, "Unknown section!")
+
 
 if __name__ == '__main__':
     unittest.main()
