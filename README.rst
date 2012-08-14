@@ -14,6 +14,8 @@ How to use
 
 * Git clone
 
+* cd githook
+
 * Create a config.ini (please refer to the config.example.ini)
 
 *
@@ -23,11 +25,19 @@ How to use
     bin/buildout
 
 *
-    bin/python githook.py
+    bin/supervisord
 
 githook now listens on port 5000 port for for post request from github
 
 you still need to configure nginx or apache to make a proxy pass
+look at the nginx.conf
+
+Tests
+=====
+
+To run tests use:
+
+bin/python tests/test.py
 
 TODO
 ====
