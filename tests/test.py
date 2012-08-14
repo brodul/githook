@@ -11,7 +11,7 @@ class GithookTestCase(unittest.TestCase):
         self.app = githook.app.test_client()
         self.ct = "application/x-www-form-urlencoded"
 
-        CONFIG = "test/config/okconfig.ini"
+        CONFIG = "tests/config/okconfig.ini"
         githook.config.read(CONFIG)
 
     def test_get(self):
@@ -21,7 +21,7 @@ class GithookTestCase(unittest.TestCase):
 
     def test_post_branch(self):
         """docstring for test_post_branch"""
-        with open("test/json/branch.json") as f:
+        with open("tests/json/branch.json") as f:
             json = f.readline()
         response = self.app.post(
             '/',
@@ -33,7 +33,7 @@ class GithookTestCase(unittest.TestCase):
     def test_post_tags(self):
         """docstring for test_post_tags"""
 
-        with open("test/json/tags.json") as f:
+        with open("tests/json/tags.json") as f:
             json = f.readline()
         response = self.app.post(
             '/',
