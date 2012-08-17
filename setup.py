@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import sys, os
 
 version = '0.1'
 
@@ -22,7 +21,5 @@ setup(name='githook',
             "Flask",
             "mock",
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
+      entry_points={'console_scripts': ['githook = githook:cli_run'] },
       )
