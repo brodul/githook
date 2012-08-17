@@ -1,5 +1,5 @@
-import os
 import unittest
+from ConfigParser import ConfigParser
 
 
 class GithookTestCase(unittest.TestCase):
@@ -12,7 +12,9 @@ class GithookTestCase(unittest.TestCase):
         self.ct = "application/x-www-form-urlencoded"
 
         CONFIG = "tests/config/okconfig.ini"
-        githook.config.read(CONFIG)
+        config = ConfigParser()
+        config.read(CONFIG)
+        githook.app.config["iniconfig"] = config
 
     def test_get(self):
         """docstring for test_get"""
@@ -25,7 +27,7 @@ class GithookTestCase(unittest.TestCase):
             json = f.readline()
         response = self.app.post(
             '/',
-            data={'payload':json},
+            data={'payload': json},
             content_type=self.ct
         )
         self.assertEqual(response.data, "OK")
@@ -37,7 +39,7 @@ class GithookTestCase(unittest.TestCase):
             json = f.readline()
         response = self.app.post(
             '/',
-            data={'payload':json},
+            data={'payload': json},
             content_type=self.ct
         )
         self.assertEqual(response.data, "OK")
@@ -48,7 +50,7 @@ class GithookTestCase(unittest.TestCase):
             json = f.readline()
         response = self.app.post(
             '/',
-            data={'payload':json},
+            data={'payload': json},
             content_type=self.ct
         )
         self.assertEqual(response.data, "Unknown section!")
