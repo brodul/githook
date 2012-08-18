@@ -16,7 +16,7 @@ How to use
 
 * cd githook
 
-* Create a config.ini (please refer to the config.example.ini)
+* Create a config.ini (please refer to the example.ini)
 
 *
     python bootstrap.py -d
