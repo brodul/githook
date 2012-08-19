@@ -4,6 +4,7 @@ githook
 
 Simple Flask application that runs a script in response of GitHub post hook.
 
+.. image:: https://secure.travis-ci.org/brodul/githook.png?branch=master
 
 Inspired by:
 
