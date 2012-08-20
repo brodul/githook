@@ -38,7 +38,7 @@ Tests
 
 To run tests use:
 
-bin/python tests/test.py
+bin/test
 
 TODO
 ====
