@@ -43,7 +43,7 @@ githook now listens on port 5000 port for for post request from github
 example.ini
 ===========
 
-.. literal:: example.ini
+.. literalinclude:: example.ini
 
 Githook command line usage
 ==========================
@@ -66,7 +66,7 @@ Nginx configuration
 
 you still need to configure nginx or apache to make a proxy pass
 
-.. literal:: nginx.conf
+.. literalinclude:: nginx.conf
 
 Apache configuration
 ====================
