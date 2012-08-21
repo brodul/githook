@@ -15,6 +15,7 @@ class ConfigNotFoundError(Exception):
 
 app = Flask(__name__)
 
+logging.basicConfig(level=logging.INFO)
 
 def test_config(config):
     """This function tests the ConfigParser object if the INI is as we want it.
@@ -83,10 +84,13 @@ def commit():
             config_branch = config.get(section, "branch")
         if refend in (config_branch, config_tag):
             run(cmd)
+            logging.info("Section: %s mached." % section)
             mached = True
 
     if not mached:
-        return "No rule mached!"
+        msg = "No section mached!"
+        logging.warning(msg)
+        return msg
 
     return "OK"
 
