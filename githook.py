@@ -98,14 +98,14 @@ def commit():
 def cli_run():
     """Entry point funcion for CLI."""
     parser = OptionParser()
-    parser.add_option("-c", "--config", dest="configfile", default="config.ini",
-                      help="INI file config", metavar="FILE")
+    parser.add_option("-c", "--config", dest="configfile", default="./config.ini",
+                      help="INI file config [default: %default]", metavar="FILE")
     parser.add_option("-l", "--listen",
                       dest="address", default="localhost",
-                      help="hostname to listen on")
+                      help="hostname to listen on [default: %default]")
     parser.add_option("-p", "--port",
                       dest="port", default="5000",
-                      help="the port of githook")
+                      help="the port of githook [default: %default]")
 
     (opt, args) = parser.parse_args()
 
