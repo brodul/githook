@@ -17,7 +17,11 @@ app = Flask(__name__)
 
 
 def test_config(config):
-    """docstring for test_config"""
+    """This function tests the ConfigParser object if the INI is as we want it.
+    Writes errors to log.
+
+    Returns list of errors (str) for testing.
+    """
     msg_list = []
     for section in config.sections():
         for option in ["name", "owner", "cmd"]:
@@ -40,11 +44,15 @@ def test_config(config):
 
 @app.route('/', methods=['GET'])
 def index():
+    """Simple function called if we get a GET request.
+    Redirects to githook repo on github.
+    """
     return redirect('https://github.com/brodul/githook')
 
 
 @app.route('/', methods=['POST'])
 def commit():
+    """ #TODO"""
 
     config = app.config["iniconfig"]
 
@@ -84,7 +92,7 @@ def commit():
 
 
 def cli_run():
-    """docstring for fname"""
+    """Entry point funcion for CLI."""
     parser = OptionParser()
     parser.add_option("-c", "--config", dest="configfile", default="config.ini",
                       help="INI file config", metavar="FILE")
