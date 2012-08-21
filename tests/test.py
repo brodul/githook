@@ -54,7 +54,7 @@ class GithookTestCase(unittest.TestCase):
             data={'payload': json},
             content_type=self.ct
         )
-        self.assertEqual(response.data, "No rule mached!")
+        self.assertEqual(response.data, "No section mached!")
 
 
 class BadConfigTest(unittest.TestCase):
