@@ -85,4 +85,3 @@ TODO
 
 See github issues.
 
-:mushroom:
