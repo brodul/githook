@@ -9,7 +9,7 @@ def read(fname):
 setup(name='githook',
       version=version,
       description="Simple web application that runs a script in response of GitHub post hook.",
-      long_description=read(os.path.join("githook", "README.rst")),
+      long_description=read("README.rst"),
       classifiers=['Development Status :: 4 - Beta',
                    'Intended Audience :: Developers',
                    'Intended Audience :: System Administrators',
