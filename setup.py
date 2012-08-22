@@ -1,15 +1,15 @@
 from setuptools import setup, find_packages
+import os
 
 version = '0.2'
+
+def read(fname):
+      return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(name='githook',
       version=version,
       description="Simple web application that runs a script in response of GitHub post hook.",
-      long_description="""\
-      This aplication starts a small web server, 
-reads a INI config file and listens for GitHub post requests,
-then runs a script in response of the post request.
-""",
+      long_description=read(os.path.join("githook", "README.rst")),
       classifiers=['Development Status :: 4 - Beta',
                    'Intended Audience :: Developers',
                    'Intended Audience :: System Administrators',
