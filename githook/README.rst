@@ -2,7 +2,9 @@
 githook
 =======
 
-Simple Flask application that runs a script in response of GitHub post hook.
+This aplication starts a small web server, 
+reads a INI config file and listens for GitHub post requests,
+then runs a script in response of the post request.
 
 .. image:: https://secure.travis-ci.org/brodul/githook.png?branch=master
 
