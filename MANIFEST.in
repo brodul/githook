@@ -1,0 +1,11 @@
+include *
+global-exclude *.pyc
+exclude bin
+exclude develop-eggs
+exclude .installed.cfg
+exclude config.ini
+exclude bin
+exclude bootstrap.py
+exclude eggs
+exclude parts
+exclude var
