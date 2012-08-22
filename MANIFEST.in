@@ -1,6 +1,7 @@
 include githook
 include setup.py
 include MANIFEST.in
+include README.rst
 include githook.egg-info
 global-exclude *.pyc
 global-exclude *.pyo
