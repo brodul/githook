@@ -1,7 +1,10 @@
 from ConfigParser import ConfigParser
 import io
+import os
 import unittest
 
+
+here = os.path.dirname(__file__)
 
 class GithookTestCase(unittest.TestCase):
 
@@ -12,7 +15,7 @@ class GithookTestCase(unittest.TestCase):
         self.app = githook.app.test_client()
         self.ct = "application/x-www-form-urlencoded"
 
-        CONFIG = "tests/config/okconfig.ini"
+        CONFIG = os.path.join(here, "config/okconfig.ini")
         config = ConfigParser()
         config.read(CONFIG)
         githook.app.config["iniconfig"] = config
@@ -24,7 +27,7 @@ class GithookTestCase(unittest.TestCase):
 
     def test_post_branch(self):
         """docstring for test_post_branch"""
-        with open("tests/json/branch.json") as f:
+        with open(os.path.join(here, "json/branch.json")) as f:
             json = f.readline()
         response = self.app.post(
             '/',
@@ -36,7 +39,7 @@ class GithookTestCase(unittest.TestCase):
     def test_post_tags(self):
         """docstring for test_post_tags"""
 
-        with open("tests/json/tags.json") as f:
+        with open(os.path.join(here, "json/tags.json")) as f:
             json = f.readline()
         response = self.app.post(
             '/',
@@ -47,7 +50,7 @@ class GithookTestCase(unittest.TestCase):
 
     def test_no_section(self):
         """"""
-        with open("tests/json/nosection.json") as f:
+        with open(os.path.join(here, "json/nosection.json")) as f:
             json = f.readline()
         response = self.app.post(
             '/',
