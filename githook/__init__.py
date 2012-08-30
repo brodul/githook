@@ -111,7 +111,8 @@ def cli_run():
 
     config = ConfigParser()
     if not config.read(opt.configfile):
-        raise ConfigNotFoundError
+        logging.critical("Configuration file not found. Please specify one.")
+        sys.exit(1)
 
     error = test_config(config)
 
