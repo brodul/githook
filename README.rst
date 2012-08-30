@@ -154,7 +154,7 @@ Tests
 
 To run tests use:
 
-``bin/test``
+``bin/nosetests``
 
 TODO
 ====

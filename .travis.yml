@@ -7,4 +7,4 @@ install:
   - "python bootstrap.py -d"
   - "bin/buildout"
 # command to run tests
-script: bin/test
+script: bin/nosetests
