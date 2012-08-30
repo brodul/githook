@@ -2,9 +2,10 @@
 githook
 =======
 
-This aplication starts a small web server, 
+This application starts a small web server, 
 reads a INI config file and listens for GitHub post requests,
 then runs a script in response of the post request.
+
 
 .. image:: https://secure.travis-ci.org/brodul/githook.png?branch=master
 
@@ -12,8 +13,30 @@ Inspired by:
 
 https://github.com/hasgeek/github-hook
 
-How to install and use
-======================
+How to install (for sysadmins)
+==============================
+
+* Install ``python-setuptools`` for your distribution (It is possible you already have it installed.)
+
+* Install the githook package ``sudo easy_install githook``
+
+* Create a configuration file.  
+
+* just run ``githook -c $PATH_TO_YOUR_CONFIG``
+
+.. note::
+    
+    For configuration file example see below.
+
+.. note::
+
+    Githook will not daemonize itself. 
+    It's recommended to use it with supervisord project
+    or write an init script. 
+    If you would like to have this feature write a comment on github.
+
+How to install from GitHub
+==========================
 
 * Git clone
 
@@ -32,13 +55,6 @@ How to install and use
     *
         ``bin/supervisord``
 
-OR
-
-* Install the githook package via ``pip``, ``easy_install`` or ``buildout``
-
-* githook (script) will appear in you bin PATH
-
-* just run ``githook``
 
 githook now listens on port 5000 port for for post request from github
 
@@ -144,4 +160,3 @@ TODO
 ====
 
 See github issues.
-
