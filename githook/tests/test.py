@@ -1,8 +1,10 @@
 from ConfigParser import ConfigParser
 import io
 import os
+import tempfile
 import unittest
 
+from scripttest import TestFileEnvironment
 
 here = os.path.dirname(__file__)
 
@@ -60,7 +62,7 @@ class GithookTestCase(unittest.TestCase):
         self.assertEqual(response.data, "No section mached!")
 
 
-class BadConfigTest(unittest.TestCase):
+class ConfigTestTest(unittest.TestCase):
     """docstring for BadConfigTest"""
 
     def setUp(self):
@@ -68,8 +70,16 @@ class BadConfigTest(unittest.TestCase):
 
         self.githook = githook
         self.githook.app.config['TESTING'] = True
+        self.okconfig = os.path.join(here, "config/okconfig.ini")
 
         self.config = ConfigParser()
+
+    def test_config_ok(self):
+        """docstring for test_config_ok"""
+        self.config.read(self.okconfig)
+        self.assertEqual(self.githook.test_config(self.config),
+            [])
+
 
     def test_no_name(self):
         """docstring for test_no_name"""
@@ -122,6 +132,36 @@ class BadConfigTest(unittest.TestCase):
         self.config.readfp(io.BytesIO(sample))
         self.assertEqual(self.githook.test_config(self.config),
         ['Please put only tag OR branch option in the "branch-tag" section!'])
+
+class CLITest(unittest.TestCase):
+    """docstring for CLITest"""
+
+    def setUp(self):
+        import githook
+
+        self.githook = githook
+        self.githook.app.config['TESTING'] = True
+
+        self.tempdir = tempfile.mkdtemp()
+        self.env = TestFileEnvironment(
+            os.path.join(self.tempdir,'test-output'),
+            ignore_hidden=False)
+
+    def test_no_config(self):
+        """docstring for test_ok_config"""
+        result = self.env.run('bin/python -m githook',
+            expect_error=True,
+            cwd=os.path.join(here, '../', '../')
+        )
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stderr, u'CRITICAL:root:Configuration file not found. Please specify one.\n')
+
+    # TODO This loops. :D Need another way of testing daemons.
+    #def test_ok_config(self):
+        """docstring for test_ok_config"""
+        #self.env.run('bin/python -m githook -c githook/tests/config/okconfig.ini',
+            #cwd=os.path.join(here, '../', '../')
+        #)
 
 if __name__ == '__main__':
     unittest.main()
