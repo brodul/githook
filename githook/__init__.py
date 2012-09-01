@@ -8,14 +8,10 @@ import sys
 
 from flask import Flask, request, redirect
 
-
-class ConfigNotFoundError(Exception):
-    """docstring for ConfigNotFound"""
-    pass
-
 app = Flask(__name__)
 
 logging.basicConfig(level=logging.INFO)
+
 
 def test_config(config):
     """This function tests the ConfigParser object if the INI is as we want it.
