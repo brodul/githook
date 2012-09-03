@@ -149,7 +149,7 @@ class CLITest(unittest.TestCase):
 
     def test_no_config(self):
         """docstring for test_ok_config"""
-        result = self.env.run('bin/python -m githook',
+        result = self.env.run('bin/python %s' % os.path.join (here, "..", "__init__.py"),
             expect_error=True,
             cwd=os.path.join(here, '../', '../')
         )
