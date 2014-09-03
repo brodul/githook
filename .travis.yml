@@ -4,13 +4,9 @@ python:
   - "2.7"
   - "3.3"
 # command to install dependencies
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install python-virtualenv
 install:
-  - virtualenv .
   - pip install scripttest
   - pip install nose
-  - python setup.py develop
+  - pip install .
 # command to run tests
-script: bin/nosetests
+script: nosetests
