@@ -5,7 +5,7 @@ import tempfile
 import sys
 
 # python 2.6 support
-if sys.version_info == (2, 6):
+if sys.version_info[:2] == (2, 6):
     import unittest2 as unittest
 else:
     import unittest
@@ -14,6 +14,8 @@ from scripttest import TestFileEnvironment
 
 here = os.path.dirname(__file__)
 is_travis = os.getenv("TRAVIS") == 'true', "Skip test on travis"
+
+
 
 class GithookTestCase(unittest.TestCase):
 
