@@ -29,3 +29,8 @@ pip-log.txt
 #github-hook config
 
 config.ini
+
+# virtual env
+/lib
+/include
+/man
