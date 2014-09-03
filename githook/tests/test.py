@@ -13,6 +13,7 @@ from scripttest import TestFileEnvironment
 
 here = os.path.dirname(__file__)
 
+
 class GithookTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -28,12 +29,10 @@ class GithookTestCase(unittest.TestCase):
         githook.app.config["iniconfig"] = config
 
     def test_get(self):
-        """docstring for test_get"""
         request = self.app.get('/')
         self.assertEqual(request.status_code, 302)
 
     def test_post_branch(self):
-        """docstring for test_post_branch"""
         with open(os.path.join(here, "json/branch.json")) as f:
             json = f.readline()
         response = self.app.post(
@@ -44,7 +43,6 @@ class GithookTestCase(unittest.TestCase):
         self.assertEqual(response.data, "OK")
 
     def test_post_tags(self):
-        """docstring for test_post_tags"""
 
         with open(os.path.join(here, "json/tags.json")) as f:
             json = f.readline()
@@ -56,7 +54,6 @@ class GithookTestCase(unittest.TestCase):
         self.assertEqual(response.data, "OK")
 
     def test_no_section(self):
-        """"""
         with open(os.path.join(here, "json/nosection.json")) as f:
             json = f.readline()
         response = self.app.post(
@@ -68,7 +65,6 @@ class GithookTestCase(unittest.TestCase):
 
 
 class ConfigTestTest(unittest.TestCase):
-    """docstring for BadConfigTest"""
 
     def setUp(self):
         import githook
@@ -80,14 +76,11 @@ class ConfigTestTest(unittest.TestCase):
         self.config = ConfigParser()
 
     def test_config_ok(self):
-        """docstring for test_config_ok"""
         self.config.read(self.okconfig)
         self.assertEqual(self.githook.test_config(self.config),
             [])
 
-
     def test_no_name(self):
-        """docstring for test_no_name"""
         sample = ("[no-name]\n"
                  "owner=brodul\n"
                  "branch=master\n"
@@ -97,7 +90,6 @@ class ConfigTestTest(unittest.TestCase):
             ['Section "no-name" must have "name" option!'])
 
     def test_no_owner(self):
-        """docstring for test_no_owner"""
         sample = ("[no-owner]\n"
                  "name=test\n"
                  "branch=master\n"
@@ -107,7 +99,6 @@ class ConfigTestTest(unittest.TestCase):
             ['Section "no-owner" must have "owner" option!'])
 
     def test_no_cmd(self):
-        """docstring for test_no_cmd"""
         sample = ("[no-cmd]\n"
                  "name=test\n"
                  "owner=brodul\n"
@@ -117,7 +108,6 @@ class ConfigTestTest(unittest.TestCase):
             ['Section "no-cmd" must have "cmd" option!'])
 
     def test_no_tag_branch(self):
-        """docstring for no_tag_no_branch"""
         sample = ("[no-branch-no-tag]\n"
                  "name=test\n"
                  "owner=brodul\n"
@@ -127,7 +117,6 @@ class ConfigTestTest(unittest.TestCase):
             ['Please put tag OR branch option in the "no-branch-no-tag" section!'])
 
     def test_tag_branch(self):
-        """docstring for test_tag_branch"""
         sample = ("[branch-tag]\n"
                  "name=test\n"
                  "owner=brodul\n"
@@ -139,7 +128,6 @@ class ConfigTestTest(unittest.TestCase):
         ['Please put only tag OR branch option in the "branch-tag" section!'])
 
 class CLITest(unittest.TestCase):
-    """docstring for CLITest"""
 
     def setUp(self):
         import githook
@@ -153,7 +141,6 @@ class CLITest(unittest.TestCase):
             ignore_hidden=False)
 
     def test_no_config(self):
-        """docstring for test_ok_config"""
         result = self.env.run('bin/python %s' % os.path.join(here, "..", "__init__.py"),
             expect_error=True,
             cwd=os.path.join(here, '../', '../')
@@ -164,7 +151,6 @@ class CLITest(unittest.TestCase):
     # TODO This loops. :D Need another way of testing daemons.
     @unittest.skip('wierd test :D')
     def test_ok_config(self):
-        """docstring for test_ok_config"""
         self.env.run('bin/python -m githook -c githook/tests/config/okconfig.ini',
             cwd=os.path.join(here, '../', '../')
         )
