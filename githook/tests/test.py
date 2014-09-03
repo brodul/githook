@@ -2,17 +2,18 @@ from ConfigParser import ConfigParser
 import io
 import os
 import tempfile
+import sys
 
 # python 2.6 support
-try:
-    import unittest
-except ImportError:
+if sys.version_info == (2, 6):
     import unittest2 as unittest
+else:
+    import unittest
 
 from scripttest import TestFileEnvironment
 
 here = os.path.dirname(__file__)
-
+is_travis = os.getenv("TRAVIS") == 'true', "Skip test on travis"
 
 class GithookTestCase(unittest.TestCase):
 
@@ -140,6 +141,7 @@ class CLITest(unittest.TestCase):
             os.path.join(self.tempdir,'test-output'),
             ignore_hidden=False)
 
+    @unittest.skipIf(*is_travis)
     def test_no_config(self):
         result = self.env.run('bin/python %s' % os.path.join(here, "..", "__init__.py"),
             expect_error=True,
@@ -149,7 +151,7 @@ class CLITest(unittest.TestCase):
         self.assertEqual(result.stderr, u'CRITICAL:root:Configuration file not found. Please specify one.\n')
 
     # TODO This loops. :D Need another way of testing daemons.
-    @unittest.skip('wierd test :D')
+    @unittest.skipIf(*is_travis)
     def test_ok_config(self):
         self.env.run('bin/python -m githook -c githook/tests/config/okconfig.ini',
             cwd=os.path.join(here, '../', '../')
