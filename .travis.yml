@@ -6,10 +6,11 @@ python:
 # command to install dependencies
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install python-nose
-  - sudo apt-get install python-pip
-  - sudo pip install scripttest
+  - sudo apt-get install python-virtualenv
 install:
-  - sudo python setup.py develop
+  - virtualenv .
+  - pip install scripttest
+  - pip install nose
+  - python setup.py develop
 # command to run tests
-script: nosetests
+script: bin/nosetests
