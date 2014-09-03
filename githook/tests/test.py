@@ -2,7 +2,12 @@ from ConfigParser import ConfigParser
 import io
 import os
 import tempfile
-import unittest
+
+# python 2.6 support
+try:
+    import unittest
+except ImportError:
+    import unittest2 as unittest
 
 from scripttest import TestFileEnvironment
 
@@ -157,11 +162,12 @@ class CLITest(unittest.TestCase):
         self.assertEqual(result.stderr, u'CRITICAL:root:Configuration file not found. Please specify one.\n')
 
     # TODO This loops. :D Need another way of testing daemons.
-    #def test_ok_config(self):
+    @unittest.skip('wierd test :D')
+    def test_ok_config(self):
         """docstring for test_ok_config"""
-        #self.env.run('bin/python -m githook -c githook/tests/config/okconfig.ini',
-            #cwd=os.path.join(here, '../', '../')
-        #)
+        self.env.run('bin/python -m githook -c githook/tests/config/okconfig.ini',
+            cwd=os.path.join(here, '../', '../')
+        )
 
 if __name__ == '__main__':
     unittest.main()
