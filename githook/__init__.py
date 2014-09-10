@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-from ConfigParser import ConfigParser
+try:
+    from ConfigParser import ConfigParser
+except ImportError:
+    from configparser import ConfigParser
+
 from optparse import OptionParser
 import json
 import logging
