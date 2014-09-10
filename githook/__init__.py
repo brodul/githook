@@ -51,6 +51,24 @@ def index():
 def commit():
     """ #TODO"""
 
+    def github_parser(payload):
+        ref = payload["ref"]
+        refend = ref.rsplit("/", 1)[1]
+
+        owner = payload["repository"]["owner"]["name"]
+        reponame = payload["repository"]["name"]
+
+        tag_branch = refend
+        return owner, reponame, tag_branch
+
+    def bitbucket_parser(payload):
+
+        owner = payload["repository"]["owner"]
+        reponame = payload["repository"]["name"]
+        branch = payload["commits"][0]["branch"]
+
+        return owner, reponame, branch
+
     config = app.config["iniconfig"]
 
     payload = request.form.get('payload')
@@ -58,27 +76,25 @@ def commit():
         return "Missing form variable 'payload'"
     payload = json.loads(payload)
 
-    ref = payload["ref"]
-    refend = ref.rsplit("/", 1)[1]
+    if payload.get("ref"):
+        owner, reponame, branch = github_parser(payload)
+    else:
+        owner, reponame, branch = bitbucket_parser(payload)
 
-    owner = payload["repository"]["owner"]["name"]
-    reponame = payload["repository"]["name"]
 
     run = lambda cmd: subprocess.call(cmd, shell=True, stdout=subprocess.PIPE)
 
     mached = False
     for section in config.sections():
-        config_tag, config_branch = None, None
+        config_branch = None
         config_owner = config.get(section, "owner")
         config_name = config.get(section, "name")
         if not (config_owner == owner and config_name == reponame):
             continue
         cmd = config.get(section, "cmd")
-        if config.has_option(section, "tag"):
-            config_tag = config.get(section, "tag")
-        elif config.has_option(section, "branch"):
+        if config.has_option(section, "branch"):
             config_branch = config.get(section, "branch")
-        if refend in (config_branch, config_tag):
+        if branch == config_branch:
             run(cmd)
             logging.info("Section: %s mached." % section)
             mached = True

@@ -16,7 +16,6 @@ here = os.path.dirname(__file__)
 is_travis = os.getenv("TRAVIS") == 'true', "Skip test on travis"
 
 
-
 class GithookTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -37,17 +36,6 @@ class GithookTestCase(unittest.TestCase):
 
     def test_post_branch(self):
         with open(os.path.join(here, "json/branch.json")) as f:
-            json = f.readline()
-        response = self.app.post(
-            '/',
-            data={'payload': json},
-            content_type=self.ct
-        )
-        self.assertEqual(response.data, "OK")
-
-    def test_post_tags(self):
-
-        with open(os.path.join(here, "json/tags.json")) as f:
             json = f.readline()
         response = self.app.post(
             '/',
@@ -130,6 +118,7 @@ class ConfigTestTest(unittest.TestCase):
         self.assertEqual(self.githook.test_config(self.config),
         ['Please put only tag OR branch option in the "branch-tag" section!'])
 
+
 class CLITest(unittest.TestCase):
 
     def setUp(self):
@@ -153,7 +142,7 @@ class CLITest(unittest.TestCase):
         self.assertEqual(result.stderr, u'CRITICAL:root:Configuration file not found. Please specify one.\n')
 
     # TODO This loops. :D Need another way of testing daemons.
-    @unittest.skipIf(*is_travis)
+    @unittest.skipIf(True, 'It loops')
     def test_ok_config(self):
         self.env.run('bin/python -m githook -c githook/tests/config/okconfig.ini',
             cwd=os.path.join(here, '../', '../')
