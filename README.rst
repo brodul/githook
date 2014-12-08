@@ -2,6 +2,8 @@
 githook
 =======
 
+.. note::  This project is discontinued. If you are seaching for a similar project, please look at https://github.com/bbinet/hooked .
+
 This application starts a small web server, 
 reads a INI config file and listens for GitHub post requests,
 then runs a script in response of the post request.
